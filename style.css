@@ -117,3 +117,23 @@
 .chibi-arm.left{left:34px}.chibi-arm.right{right:34px}
 .chibi-legs{z-index:3;top:232px}
 .chibi-accessory{z-index:7}
+
+/* Coin quest board */
+.tasks-panel{margin:28px 0 34px;padding:24px;border:1px solid #ffffff24;border-radius:26px;background:linear-gradient(135deg,#25164b,#38205e 60%,#48265e);box-shadow:0 18px 45px #170b3522;color:#fff}
+.tasks-heading{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:18px}
+.tasks-heading h2{font-size:clamp(22px,3vw,30px);margin:4px 0;color:#fff}
+.tasks-heading p{margin:0;color:#d7c9f0;font-size:13px}
+.tasks-total{white-space:nowrap;padding:9px 13px;border-radius:30px;background:#ffffff18;color:#ffe49c;font-size:11px;font-weight:900}
+.tasks-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.quest-card{display:flex;align-items:center;gap:12px;min-width:0;padding:13px;border:1px solid #ffffff20;border-radius:17px;background:#ffffff0d;transition:background .2s,border .2s}
+.quest-card.quest-ready{border-color:#f7d77c;background:#fff6d51a}
+.quest-card.quest-done{opacity:.62;background:#c6f5d512}
+.quest-icon{flex:0 0 42px;width:42px;height:42px;display:grid;place-items:center;border-radius:13px;background:#ffffff18;font-size:23px}
+.quest-copy{display:flex;flex:1;min-width:0;flex-direction:column;gap:3px}
+.quest-copy b{font-size:13px;color:#fff}
+.quest-copy span{font-size:11px;color:#d9d0ec}
+.quest-copy small{font-size:10px;color:#ffdf91;font-weight:800}
+.quest-claim{flex:0 0 auto;min-width:76px;border:0;border-radius:22px;padding:9px 11px;background:linear-gradient(110deg,#ffb86b,#ff83b7);color:#53274c;font-size:10px;font-weight:900;cursor:pointer}
+.quest-claim:disabled{background:#ffffff18;color:#b9adcf;cursor:default}
+.quest-done .quest-claim{background:#b9f2cf;color:#236544}
+@media(max-width:650px){.tasks-panel{padding:17px}.tasks-grid{grid-template-columns:1fr}.tasks-heading{align-items:flex-start;flex-direction:column}.quest-card{padding:11px}.quest-claim{min-width:68px}}
