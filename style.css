@@ -258,3 +258,14 @@
 .privacy-note{font-size:10px;line-height:1.6;color:#8d829c;margin:15px 2px 0}
 @media(max-width:700px){.studio-layout{grid-template-columns:1fr}.recording-studio{padding:16px}.recording-heading h2{font-size:25px}.studio-open-btn{font-size:10px;padding:8px}}
 @media(max-width:560px){.top-actions{gap:5px}.studio-open-btn{font-size:9px;padding:8px}.recording-studio{margin-top:18px}}
+
+
+/* Niolamz LIVE private room layout */
+.live-studio{margin:28px 0 32px;padding:25px;border:1px solid #e9defa;border-radius:25px;background:linear-gradient(135deg,#fff,#f3edff 58%,#fff0f7);box-shadow:0 14px 38px #30204b0c}
+.live-studio .recording-heading h2{color:#50377f}.live-safety{padding:13px 15px;border:1px solid #f4d5a0;border-radius:14px;background:#fff8e8;color:#74552a;font-size:12px;line-height:1.6;margin-bottom:16px}
+.live-columns{display:grid;grid-template-columns:1fr 1fr;gap:15px}.live-panel{min-width:0;padding:17px;border:1px solid #ece4f6;border-radius:18px;background:#fff;display:flex;flex-direction:column;align-items:stretch;gap:10px}
+.live-panel h3{margin:0 0 3px;color:#5c438d;font:900 18px Outfit}.live-panel label{font-size:12px;font-weight:800;color:#76678c}
+.live-panel input{width:100%;min-width:0;padding:12px;border:1px solid #ded2ef;border-radius:11px;font:700 13px Outfit;color:#50377f}
+.live-primary,.live-go,.live-end,.live-code-box button,.live-incoming button{border:0;border-radius:12px;padding:12px 15px;font:900 12px Outfit;cursor:pointer}
+.live-primary{background:linear-gradient(110deg,#a68aff,#f18dbd);color:#fff}.live-go{background:#ffe0e9;color:#a52c61}.live-go:disabled{opacity:.5;cursor:not-allowed}.live-end{background:#35234f;color:#fff}.live-code-box{padding:12px;border-radius:13px;background:#f3edff;display:flex;flex-direction:column;gap:7px;text-align:center}.live-code-box small{font-size:9px;letter-spacing:1px;color:#8872a6;font-weight:900}.live-code-box strong{font:900 15px monospace;color:#53398a;overflow-wrap:anywhere}.live-code-box button{background:#fff;color:#684aa2}.live-incoming{padding:12px;border-radius:13px;background:#fff4d8;color:#78551e;font-size:12px}.live-incoming div{display:flex;gap:8px;margin-top:9px}.live-incoming button:first-child{background:#d9f6e4;color:#246a44}.live-incoming button:last-child{background:#fbe2e8;color:#9a3657}.live-status{min-height:32px;margin:0;color:#7f718e;font-size:11px;line-height:1.5}.live-video{width:100%;max-height:300px;aspect-ratio:16/9;object-fit:contain;background:#1d1431;border-radius:13px}.live-studio .hidden{display:none!important}
+@media(max-width:680px){.live-studio{padding:16px}.live-columns{grid-template-columns:1fr}.live-studio .recording-heading h2{font-size:25px}}
