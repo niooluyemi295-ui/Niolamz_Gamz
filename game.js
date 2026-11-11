@@ -45,5 +45,59 @@ function tic(){shell('⭕ Tic-Tac-Toe','Two players, one device. Get three in a 
 function catcher(){shell('🍰 Cake Catcher','Move your basket and catch treats. You have 30 seconds!');const a=$('playArea');a.innerHTML='<div><b id="catchScore">0</b> points · <span id="catchClock">30</span>s</div><div class="catch-area" id="catchArea" tabindex="0"><div class="catch-basket" id="basket">🧺</div></div><p class="catch-controls">Use ← →, A / D, or drag the basket.</p><button class="game-btn" id="catchStart">Start catching</button>';let score=0,left=30,active=false,pos=45;const area=$('catchArea'),basket=$('basket');function position(p){pos=Math.max(3,Math.min(88,p));basket.style.left=pos+'%'}function move(e){if(!active)return;const r=area.getBoundingClientRect();position((e.clientX-r.left)/r.width*100-5)}area.addEventListener('pointerdown',e=>{area.setPointerCapture(e.pointerId);move(e)});area.addEventListener('pointermove',e=>{if(e.buttons)move(e)});const key=e=>{if(!active)return;if(['ArrowLeft','ArrowRight','a','d','A','D'].includes(e.key)){e.preventDefault();position(pos+(['ArrowLeft','a','A'].includes(e.key)?-5:5))}};window.addEventListener('keydown',key);cleanup=()=>window.removeEventListener('keydown',key);$('catchStart').onclick=()=>{score=0;left=30;active=true;position(45);$('catchScore').textContent=0;$('catchStart').disabled=true;timer=setInterval(()=>{left--;$('catchClock').textContent=left;if(left<=0){active=false;stop();area.querySelectorAll('.falling').forEach(x=>x.remove());$('catchStart').disabled=false;$('catchStart').textContent='Play again';award(score,Math.max(3,Math.ceil(score/3)),'catcher')}},1000);const spawn=setInterval(()=>{if(!active){clearInterval(spawn);return}const el=document.createElement('span');el.className='falling';el.textContent=Math.random()<.84?['🍰','🧁','🍩','🍓'][Math.floor(Math.random()*4)]:'💩';el.dataset.bad=el.textContent==='💩'?'1':'0';el.style.left=Math.random()*90+'%';area.appendChild(el);let y=-35;const fall=setInterval(()=>{if(!active){clearInterval(fall);el.remove();return}y+=4;el.style.top=y+'px';const er=el.getBoundingClientRect(),br=basket.getBoundingClientRect();if(er.bottom>=br.top&&er.left<br.right&&er.right>br.left&&er.top<br.bottom){score=el.dataset.bad==='1'?Math.max(0,score-3):score+1;$('catchScore').textContent=score;el.remove();clearInterval(fall);tone(520)}else if(y>area.clientHeight){el.remove();clearInterval(fall)}},35)},700)}}
 function bubble(){shell('🫧 Bubble Pop','Pop the bubbles! You have 20 seconds.');const a=$('playArea');a.innerHTML='<div><b id="bubbleScore">0</b> pops · <span id="bubbleClock">20</span>s</div><div class="bubble-area" id="bubbleArea"></div><button class="game-btn" id="bubbleStart">Start popping</button>';let score=0,left=20,active=false;const area=$('bubbleArea');$('bubbleStart').onclick=()=>{score=0;left=20;active=true;$('bubbleScore').textContent=0;$('bubbleStart').disabled=true;const spawn=setInterval(()=>{if(!active){clearInterval(spawn);return}const b=document.createElement('button');b.className='bubble';const size=35+Math.random()*42;b.style.width=size+'px';b.style.height=size+'px';b.style.left=Math.random()*(area.clientWidth-size)+'px';b.style.top=Math.random()*(area.clientHeight-size)+'px';b.setAttribute('aria-label','Pop bubble');b.onclick=()=>{if(!active)return;score++;$('bubbleScore').textContent=score;tone(450+Math.random()*450);b.remove()};area.appendChild(b);setTimeout(()=>b.remove(),1700)},250);timer=setInterval(()=>{left--;$('bubbleClock').textContent=left;if(left<=0){active=false;stop();area.innerHTML='';$('bubbleStart').disabled=false;$('bubbleStart').textContent='Play again';award(score,Math.max(3,Math.ceil(score/2)),'bubble')}},1000)}}
 function stardash(){shell('🌟 Star Dash','Tap the star as many times as you can in 20 seconds!');const a=$('playArea');a.innerHTML='<div><b id="starScore">0</b> stars · <span id="starClock">20</span>s</div><div class="star-area" id="starArea"><button class="star-target" id="starTarget" aria-label="Tap star">⭐</button></div><button class="game-btn" id="starStart">Start star dash</button>';let score=0,left=20,active=false;const area=$('starArea'),star=$('starTarget');function place(){star.style.left=Math.max(0,Math.random()*(area.clientWidth-55))+'px';star.style.top=Math.max(0,Math.random()*(area.clientHeight-55))+'px'}place();star.onclick=()=>{if(!active)return;score++;$('starScore').textContent=score;tone(600+Math.min(score,10)*35);place()};$('starStart').onclick=()=>{score=0;left=20;active=true;$('starScore').textContent=0;$('starStart').disabled=true;place();timer=setInterval(()=>{left--;$('starClock').textContent=left;if(left<=0){active=false;stop();$('starStart').disabled=false;$('starStart').textContent='Play again';award(score,Math.max(3,Math.ceil(score/2)),'stardash')}},1000)}}
+
+/* Local video and voice recording studio */
+let studioStream=null,mediaRecorder=null,recordedChunks=[],studioClips=[];
+const cameraPreview=$('cameraPreview');
+function setStudioStatus(message){$('studioStatus').textContent=message}
+async function startStudioCamera(){
+  if(!navigator.mediaDevices?.getUserMedia||!window.MediaRecorder){setStudioStatus('Recording is not supported in this browser. Try the latest Microsoft Edge or Chrome.');return}
+  try{
+    studioStream=await navigator.mediaDevices.getUserMedia({video:{facingMode:'user'},audio:true});
+    cameraPreview.srcObject=studioStream;
+    $('cameraPlaceholder').classList.add('hidden');
+    $('cameraStartBtn').disabled=true;$('recordBtn').disabled=false;$('cameraOffBtn').disabled=false;
+    setStudioStatus('Camera and microphone are ready! Press Record when you are ready.');
+  }catch(err){setStudioStatus(err.name==='NotAllowedError'?'Camera/microphone permission was not allowed. You can change it in your browser site settings.':'Could not start the camera. Check that it is connected and not being used by another app.')}
+}
+function renderStudioClips(){
+  const list=$('recordingList');list.innerHTML='';
+  $('recordingCount').textContent=studioClips.length+' clip'+(studioClips.length===1?'':'s');
+  if(!studioClips.length){list.innerHTML='<div class="empty-recordings">🎞️<b>Your videos will show up here!</b><small>Only you can see them in this browser session.</small></div>';return}
+  studioClips.forEach((clip,index)=>{
+    const card=document.createElement('article');card.className='recording-clip';
+    const video=document.createElement('video');video.src=clip.url;video.controls=true;video.playsInline=true;video.preload='metadata';
+    const info=document.createElement('div');info.className='recording-clip-info';
+    const name=document.createElement('b');name.textContent='My recording '+(index+1);
+    const date=document.createElement('small');date.textContent=clip.date;
+    const remove=document.createElement('button');remove.className='delete-clip';remove.textContent='🗑 Delete';remove.onclick=()=>{URL.revokeObjectURL(clip.url);studioClips=studioClips.filter(x=>x!==clip);renderStudioClips()};
+    info.append(name,date,remove);card.append(video,info);list.append(card);
+  })
+}
+function stopStudioCamera(){
+  if(mediaRecorder&&mediaRecorder.state!=='inactive')mediaRecorder.stop();
+  if(studioStream){studioStream.getTracks().forEach(track=>track.stop());studioStream=null}
+  cameraPreview.srcObject=null;$('cameraPlaceholder').classList.remove('hidden');
+  $('cameraStartBtn').disabled=false;$('recordBtn').disabled=true;$('cameraOffBtn').disabled=true;
+  setStudioStatus('Camera and microphone are off.');
+}
+$('studioOpenBtn').onclick=()=>document.getElementById('recordingStudio').scrollIntoView({behavior:'smooth',block:'start'});
+$('cameraStartBtn').onclick=startStudioCamera;
+$('recordBtn').onclick=()=>{
+  if(!studioStream)return;
+  recordedChunks=[];
+  let options={};if(MediaRecorder.isTypeSupported('video/webm;codecs=vp9,opus'))options.mimeType='video/webm;codecs=vp9,opus';else if(MediaRecorder.isTypeSupported('video/webm'))options.mimeType='video/webm';
+  try{mediaRecorder=new MediaRecorder(studioStream,options)}catch{setStudioStatus('This browser could not start recording.');return}
+  mediaRecorder.ondataavailable=e=>{if(e.data&&e.data.size)recordedChunks.push(e.data)};
+  mediaRecorder.onstop=()=>{
+    if(recordedChunks.length){const blob=new Blob(recordedChunks,{type:mediaRecorder.mimeType||'video/webm'});const url=URL.createObjectURL(blob);studioClips.unshift({url,date:new Date().toLocaleString()});renderStudioClips();setStudioStatus('Saved! Your recording is ready to play below. 💗')}
+    $('recordingIndicator').classList.add('hidden');$('recordBtn').disabled=false;$('stopRecordBtn').disabled=true;
+  };
+  mediaRecorder.start();$('recordingIndicator').classList.remove('hidden');$('recordBtn').disabled=true;$('stopRecordBtn').disabled=false;setStudioStatus('Recording now! Press Stop when you are finished.');
+};
+$('stopRecordBtn').onclick=()=>{if(mediaRecorder&&mediaRecorder.state!=='inactive')mediaRecorder.stop()};
+$('cameraOffBtn').onclick=stopStudioCamera;
+window.addEventListener('beforeunload',()=>{if(studioStream)studioStream.getTracks().forEach(t=>t.stop());studioClips.forEach(c=>URL.revokeObjectURL(c.url))});
+
 $('avatarOpenBtn').onclick=openAvatar;$('avatarCloseBtn').onclick=()=>$('avatarOverlay').classList.add('hidden');$('avatarOverlay').onclick=e=>{if(e.target===$('avatarOverlay'))$('avatarOverlay').classList.add('hidden')};$('avatarCategories').querySelectorAll('button').forEach(btn=>btn.onclick=()=>{avatarCategory=btn.dataset.category;$('avatarCategories').querySelectorAll('button').forEach(x=>x.classList.toggle('active',x===btn));renderAvatarItems()});$('avatarName').oninput=e=>{avatarName=e.target.value.slice(0,16)||'My Avatar';save('avatarName',avatarName)};$('homeLink').onclick=e=>{e.preventDefault();showHome()};$('backBtn').onclick=showHome;document.querySelectorAll('.game-card').forEach(b=>b.onclick=()=>start(b.dataset.game));$('surpriseBtn').onclick=()=>start(['clicker','memory','tictactoe','catcher','bubble','stardash'][Math.floor(Math.random()*6)]);$('soundBtn').onclick=()=>{sound=!sound;$('soundBtn').textContent=sound?'🔊':'🔇';toast(sound?'Sound effects on':'Sound effects off');if(sound)tone()};stats();
 })();
