@@ -165,3 +165,25 @@
 .chibi-body[data-style="outfit-dress"]:before,.chibi-body[data-style="outfit-royal"]:before{inset:7px 3px 2px;border-radius:16px 16px 28px 28px}
 .chibi-arm:after{background:linear-gradient(145deg,#ff9bc5,#d77be8)}
 .chibi-body[data-style="outfit-starter"]~.chibi-arm:after{background:linear-gradient(145deg,#8de7a7,#40bd83)}
+
+/* Face choices: CSS targets the actual face element */
+.chibi-face[data-style="face-happy"]{font-size:0!important}
+.chibi-face[data-style="face-happy"]:before{content:'•ᴗ•';font-size:30px;color:#56354d}
+.chibi-face[data-style="face-cool"]:before{content:'😎';font-size:29px}
+.chibi-face[data-style="face-wink"]:before{content:'😉';font-size:29px}
+.chibi-face[data-style="face-love"]:before{content:'🥰';font-size:29px}
+.chibi-head[data-face-style="face-happy"]:after{content:'';position:absolute;left:57px;top:79px;width:17px;height:9px;border-bottom:3px solid #c65b78;border-radius:50%}
+.chibi-head[data-face-style="face-cool"]:after{content:'⌣';position:absolute;left:56px;top:74px;width:18px;height:14px;border:0;color:#c65b78;font-size:19px}
+.chibi-head[data-face-style="face-wink"]:after{content:'⌣';position:absolute;left:56px;top:74px;width:18px;height:14px;border:0;color:#c65b78;font-size:19px}
+.chibi-head[data-face-style="face-love"]:after{content:'♡';position:absolute;left:56px;top:71px;width:18px;height:16px;border:0;color:#e85e9b;font-size:18px}
+/* Clothing styles recolor the actual torso AND matching sleeves */
+.chibi-body[data-style="outfit-starter"]{background:linear-gradient(145deg,#8de7a7,#40bd83 60%,#239b70)!important}
+.chibi-body[data-style="outfit-dress"]{background:linear-gradient(145deg,#ffacd5,#f05caa 60%,#c83788)!important}
+.chibi-body[data-style="outfit-hoodie"]{background:linear-gradient(145deg,#a9d9ff,#6e9fe8 60%,#496bc3)!important}
+.chibi-body[data-style="outfit-royal"]{background:linear-gradient(145deg,#ffe68d,#e8b94b 60%,#b57b25)!important}
+.chibi-body[data-style="outfit-starter"]~.chibi-arm:after{background:linear-gradient(145deg,#8de7a7,#40bd83)!important}
+.chibi-body[data-style="outfit-dress"]~.chibi-arm:after{background:linear-gradient(145deg,#ffacd5,#e85ca9)!important}
+.chibi-body[data-style="outfit-hoodie"]~.chibi-arm:after{background:linear-gradient(145deg,#a9d9ff,#6e9fe8)!important}
+.chibi-body[data-style="outfit-royal"]~.chibi-arm:after{background:linear-gradient(145deg,#ffe68d,#dba33d)!important}
+.chibi-body[data-style="outfit-dress"]{border-radius:22px 22px 30px 30px!important}
+.chibi-body[data-style="outfit-royal"]{border-radius:22px 22px 30px 30px!important}
