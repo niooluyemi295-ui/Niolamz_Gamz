@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#17102e">
+  <meta name="description" content="Niolamz Gamz — a colourful little arcade full of mini-games.">
+  <title>Niolamz Gamz — Play happy</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="game.js" defer></script>
+</head>
+<body>
+  <div class="ambient ambient-one"></div><div class="ambient ambient-two"></div>
+  <header class="topbar">
+    <a class="brand" href="#" id="homeLink" aria-label="Niolamz Gamz home"><span class="brand-mark">✦</span><span>NIOLAMZ <b>GAMZ</b></span></a>
+    <div class="top-actions"><div class="coin-pill">🪙 <span id="coinCount">0</span></div><button class="icon-btn" id="soundBtn" aria-label="Toggle sound" title="Toggle sound">🔊</button></div>
+  </header>
+  <main>
+    <section class="hero" id="homeView">
+      <div class="hero-copy"><span class="eyebrow">✦ YOUR HAPPY PLACE TO PLAY ✦</span><h1>Ready, set,<br><span>PLAY!</span></h1><p>Pick a game, beat your best score and collect shiny coins. Your arcade adventure starts here.</p>
+        <button class="primary-btn" id="surpriseBtn">Surprise me <span>✧</span></button>
+      </div>
+      <div class="hero-art" aria-hidden="true"><div class="orbit orbit-a"></div><div class="orbit orbit-b"></div><div class="hero-star">★</div><div class="hero-controller">🎮</div><span class="float f1">✦</span><span class="float f2">♡</span><span class="float f3">✧</span></div>
+    </section>
+    <section class="stats-row"><div><strong id="playedCount">0</strong><span>GAMES PLAYED</span></div><div><strong id="bestScore">0</strong><span>BEST SCORE</span></div><div><strong id="totalCoins">0</strong><span>COINS EARNED</span></div></section>
+    <section class="section-head"><div><span class="eyebrow">THE ARCADE</span><h2>Choose your game</h2></div><span class="game-count">04 MINI GAMES</span></section>
+    <section class="game-grid" id="gameGrid">
+      <button class="game-card pink" data-game="clicker"><span class="card-icon">💖</span><span class="card-tag">QUICK & FUN</span><strong>Heart Clicker</strong><small>How many hearts can you tap in 15 seconds?</small><span class="play-link">PLAY NOW ↗</span></button>
+      <button class="game-card blue" data-game="memory"><span class="card-icon">🧠</span><span class="card-tag">BRAIN POWER</span><strong>Memory Match</strong><small>Flip the cards and find all the matching pairs.</small><span class="play-link">PLAY NOW ↗</span></button>
+      <button class="game-card yellow" data-game="tictactoe"><span class="card-icon">⭕</span><span class="card-tag">TWO PLAYERS</span><strong>Tic-Tac-Toe</strong><small>Challenge a friend in the classic grid battle.</small><span class="play-link">PLAY NOW ↗</span></button>
+      <button class="game-card green" data-game="catcher"><span class="card-icon">🍰</span><span class="card-tag">ARCADE ACTION</span><strong>Cake Catcher</strong><small>Catch the falling treats. Don't let them escape!</small><span class="play-link">PLAY NOW ↗</span></button>
+    </section>
+    <section class="tip-banner"><span>🌈</span><p><b>Little tip:</b> Every game gives you coins. Come back and try to beat your high score!</p></section>
+    <section class="game-screen hidden" id="gameScreen" aria-live="polite">
+      <div class="screen-top"><button class="back-btn" id="backBtn">← ARCADE</button><span class="screen-label">NOW PLAYING</span></div>
+      <div id="gameMount"></div>
+    </section>
+  </main>
+  <footer><span>✦ NIOLAMZ GAMZ ✦</span><span>Made for big smiles and brilliant high scores.</span></footer>
+  <div class="toast" id="toast" role="status"></div>
+</body>
+</html>
