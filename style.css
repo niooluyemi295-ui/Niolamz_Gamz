@@ -207,3 +207,29 @@
 .music-video iframe{width:100%;height:100%;border:0}
 .music-tip{margin:11px 0 0;text-align:center;color:#8b7b9b;font-size:11px}
 @media(max-width:600px){.topbar{padding:0 12px}.top-actions{gap:6px}.music-open-btn{font-size:10px;padding:8px}.avatar-open-btn{font-size:10px;padding:8px}.coin-pill{padding:7px 9px;font-size:12px}}
+
+
+/* Real dress silhouette: fitted bodice, defined waist and flared skirt */
+.chibi-body[data-style="outfit-dress"]{
+  left:45px!important;top:151px!important;width:90px!important;height:91px!important;
+  border:0!important;border-radius:0!important;
+  clip-path:polygon(19% 0,81% 0,87% 37%,100% 100%,0 100%,13% 37%)!important;
+  background:linear-gradient(100deg,#c93683 0%,#ffacd5 18%,#f45ba8 50%,#d83e91 82%,#a92e70 100%)!important;
+  box-shadow:inset 0 0 0 3px #87365f, inset 0 7px 0 #ffffff77!important;
+}
+.chibi-body[data-style="outfit-dress"]:before{
+  inset:0 17px 48px!important;border:0!important;border-radius:0 0 12px 12px!important;
+  background:linear-gradient(90deg,#ffe0ef55,#fff9 48%,#ffe0ef55)!important;
+  clip-path:polygon(0 0,100% 0,88% 100%,12% 100%)!important;
+}
+.chibi-body[data-style="outfit-dress"]:after{
+  content:"";position:absolute;left:13px;right:13px;top:36px;height:3px;
+  border-radius:50%;background:#ffe7f4;box-shadow:0 4px 0 #c9368355;
+}
+.chibi-body[data-style="outfit-dress"]~.chibi-arm{
+  background:linear-gradient(90deg,#f5bda9 0 24%,#ffacd5 25% 100%)!important;
+}
+.chibi-body[data-style="outfit-dress"]~.chibi-arm:after{
+  top:0!important;height:25px!important;border-radius:12px!important;
+  background:linear-gradient(145deg,#ffacd5,#e85ca9)!important;
+}
