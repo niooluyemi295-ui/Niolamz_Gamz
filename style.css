@@ -39,3 +39,42 @@
 .avatar-category.active{background:linear-gradient(110deg,#eee5ff,#ffe7f3);border-color:#cbb6ff}
 .avatar-note{font-size:11px}
 @media(max-width:560px){.avatar-layout{grid-template-columns:1fr}.avatar-preview-card{min-height:350px}.chibi-stage{height:245px}.chibi-character{transform:scale(.9)}.avatar-shop{padding:12px}}
+
+/* Chibi dress-up editor inspired by the supplied reference */
+.chibi-editor{width:min(1050px,97vw);padding:18px 20px 20px;border:4px solid #fff;border-radius:28px;background:linear-gradient(135deg,#e5faff,#f8efff 55%,#fff0f7);box-shadow:0 25px 90px #180b3766}
+.chibi-editor .avatar-modal-head{margin-bottom:12px}
+.chibi-editor .avatar-modal-head h2{font-size:25px;color:#6140ad}
+.chibi-editor-layout{display:grid;grid-template-columns:minmax(270px,1fr) 58px minmax(300px,1.05fr);gap:12px;min-height:440px}
+.chibi-scene{position:relative;min-height:440px;border:4px solid #fff;border-radius:24px;overflow:hidden;background:linear-gradient(180deg,#7ee4f4 0%,#8bc9ff 56%,#9a9cff 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:inset 0 -12px 35px #6557c344,0 7px 20px #6a8cc522}
+.chibi-scene:before{content:'';position:absolute;inset:0;background-image:radial-gradient(#ffffff80 1.5px,transparent 1.5px);background-size:18px 18px;opacity:.5}
+.chibi-stage{z-index:1;width:100%;height:330px;margin:0;background:transparent;border-radius:0;box-shadow:none;overflow:visible}
+.chibi-character{transform:scale(1.17);transform-origin:center 75%;animation:chibiFloat 3s ease-in-out infinite}
+.chibi-head{width:132px;height:125px;left:24px;top:32px;border-width:4px;background:linear-gradient(145deg,#ffe9dc,#f7bcae)}
+.chibi-head:before{top:51px;left:22px;width:13px;height:19px;box-shadow:66px 0 #51364a}
+.chibi-head:after{left:56px;top:79px;width:17px;height:9px}
+.chibi-hair{left:12px;top:0;width:156px;font-size:83px}
+.chibi-face{inset:43px 0 auto;font-size:26px}
+.chibi-body{background:linear-gradient(145deg,#ff9bc9,#9d8bff);border-radius:28px 28px 20px 20px}
+.chibi-platform{z-index:2;margin-top:-4px;padding:8px 28px;border:4px solid #fff;border-radius:50%;background:linear-gradient(#e8fbff,#a7e9f5);color:#6949b3;font:900 10px Outfit;letter-spacing:2px;box-shadow:0 7px 0 #6d79c9}
+.chibi-platform span{color:#fa78bd}
+.chibi-scene .avatar-name-input{z-index:2;margin-top:18px;width:70%;border:2px solid #fff;border-radius:18px;background:#ffffffdf}
+.chibi-scene .preview-hint{z-index:2;color:#fff;font-weight:800;text-shadow:0 1px 4px #4569a4}
+.scene-cloud{position:absolute;z-index:1;color:#fff;font-size:36px;text-shadow:0 3px 10px #527dc9;animation:twinkle 2s infinite}
+.cloud-one{left:10%;top:30%}.cloud-two{right:10%;top:19%}
+.chibi-tool-rail{display:flex;flex-direction:column;align-items:center;gap:11px;padding:12px 0;background:#ffffff9c;border-radius:22px}
+.chibi-tool-rail .avatar-category{width:46px;height:46px;border:2px solid #d9c5ff;border-radius:50%;font-size:21px;padding:0;background:#f4eaff;box-shadow:0 3px 0 #d6c5f5}
+.chibi-tool-rail .avatar-category.active{background:#ffe7a5;border-color:#ffca59;box-shadow:0 3px 0 #e6ae40;transform:scale(1.08)}
+.chibi-shop{padding:15px;border:3px solid #fff;border-radius:23px;background:#ffffffd9;min-width:0;box-shadow:0 8px 20px #6d58a01c}
+.chibi-shop .avatar-shop-top{align-items:center}
+.chibi-shop .avatar-shop-top>div{display:flex;flex-direction:column;gap:3px}
+.chibi-shop .avatar-shop-top b{font:900 18px Outfit;color:#6444a8}
+.chibi-shop-tabs{display:flex;justify-content:space-between;gap:6px;margin:15px 0 10px;padding:9px 11px;border-radius:12px;background:#fff1cb;color:#88602d;font-size:10px;font-weight:900}
+.chibi-shop .avatar-items{grid-template-columns:repeat(2,minmax(0,1fr));max-height:335px;gap:10px}
+.chibi-shop .avatar-item{border:2px solid #e6f0f7;border-radius:17px;padding:12px 8px;background:linear-gradient(145deg,#fff,#f6fbff)}
+.chibi-shop .avatar-item:nth-child(3n+2){background:linear-gradient(145deg,#fff9df,#fff)}
+.chibi-shop .avatar-item-emoji{font-size:35px}
+.chibi-shop .avatar-item b{font-size:11px;min-height:26px}
+.chibi-shop .avatar-item button{border-radius:20px;background:linear-gradient(100deg,#ff8eac,#a27bf2);font-size:9px;padding:8px 5px}
+.chibi-shop .avatar-item button.equipped{background:#dcf8e7;color:#288151}
+.chibi-shop .avatar-note{text-align:center;line-height:1.5;margin:10px 0 0}
+@media(max-width:700px){.chibi-editor{padding:12px}.chibi-editor-layout{grid-template-columns:minmax(0,1fr) 48px;gap:8px}.chibi-scene{grid-column:1/3;min-height:390px}.chibi-stage{height:285px}.chibi-character{transform:scale(1.02)}.chibi-tool-rail{grid-column:1;grid-row:2;flex-direction:row;justify-content:center;gap:8px;padding:8px}.chibi-shop{grid-column:1/3;grid-row:3}.chibi-tool-rail .avatar-category{width:42px;height:42px}.chibi-shop .avatar-items{max-height:260px}}
