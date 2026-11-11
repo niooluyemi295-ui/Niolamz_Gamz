@@ -100,4 +100,63 @@ $('cameraOffBtn').onclick=stopStudioCamera;
 window.addEventListener('beforeunload',()=>{if(studioStream)studioStream.getTracks().forEach(t=>t.stop());studioClips.forEach(c=>URL.revokeObjectURL(c.url))});
 
 $('avatarOpenBtn').onclick=openAvatar;$('avatarCloseBtn').onclick=()=>$('avatarOverlay').classList.add('hidden');$('avatarOverlay').onclick=e=>{if(e.target===$('avatarOverlay'))$('avatarOverlay').classList.add('hidden')};$('avatarCategories').querySelectorAll('button').forEach(btn=>btn.onclick=()=>{avatarCategory=btn.dataset.category;$('avatarCategories').querySelectorAll('button').forEach(x=>x.classList.toggle('active',x===btn));renderAvatarItems()});$('avatarName').oninput=e=>{avatarName=e.target.value.slice(0,16)||'My Avatar';save('avatarName',avatarName)};$('homeLink').onclick=e=>{e.preventDefault();showHome()};$('backBtn').onclick=showHome;document.querySelectorAll('.game-card').forEach(b=>b.onclick=()=>start(b.dataset.game));$('surpriseBtn').onclick=()=>start(['clicker','memory','tictactoe','catcher','bubble','stardash'][Math.floor(Math.random()*6)]);$('soundBtn').onclick=()=>{sound=!sound;$('soundBtn').textContent=sound?'🔊':'🔇';toast(sound?'Sound effects on':'Sound effects off');if(sound)tone()};stats();
+
+/* Private live rooms — invite code + host approval */
+(()=>{
+const el=id=>document.getElementById(id);
+if(!el('liveStudio'))return;
+let hostPeer=null,viewerPeer=null,hostStream=null,pendingCall=null,viewerCall=null,blankStream=null;
+const status=(id,msg)=>{el(id).textContent=msg};
+function closeHost(){
+ if(pendingCall){pendingCall.close();pendingCall=null}
+ if(hostPeer){hostPeer.destroy();hostPeer=null}
+ if(hostStream){hostStream.getTracks().forEach(t=>t.stop());hostStream=null}
+ el('liveHostPreview').srcObject=null;
+ ['liveHostPreview','liveEndBtn','liveIncoming'].forEach(id=>el(id).classList.add('hidden'));
+ el('liveCodeBox').classList.add('hidden');el('liveCreateBtn').disabled=false;el('liveGoBtn').disabled=true;el('liveGoBtn').textContent='🔴 Go live';
+ status('liveHostStatus','Your camera and microphone are off. Room closed.');
+}
+function closeViewer(){
+ if(viewerCall){viewerCall.close();viewerCall=null}
+ if(viewerPeer){viewerPeer.destroy();viewerPeer=null}
+ if(blankStream){blankStream.getTracks().forEach(t=>t.stop());blankStream=null}
+ el('liveViewerVideo').srcObject=null;el('liveViewerVideo').classList.add('hidden');el('liveLeaveBtn').classList.add('hidden');
+ status('liveViewerStatus','You left the room. Your camera and microphone were never turned on.');
+}
+el('liveCreateBtn').onclick=()=>{
+ if(!window.Peer){status('liveHostStatus','Live connection library did not load. Refresh the page and try again.');return}
+ closeHost();hostPeer=new Peer();
+ status('liveHostStatus','Creating your private room…');
+ hostPeer.on('open',id=>{el('liveRoomCode').textContent=id;el('liveCodeBox').classList.remove('hidden');el('liveCreateBtn').disabled=true;el('liveGoBtn').disabled=false;status('liveHostStatus','Room ready! Copy your code to a trusted friend. Press Go live when you are ready.')});
+ hostPeer.on('call',call=>{if(pendingCall){call.close();return}pendingCall=call;el('liveIncoming').classList.remove('hidden');status('liveHostStatus','A viewer is waiting. Accept only if you know who it is.')});
+ hostPeer.on('error',err=>status('liveHostStatus','Room connection issue: '+err.type+'. Try creating a new room.'));
+};
+el('liveCopyCodeBtn').onclick=()=>{const code=el('liveRoomCode').textContent;if(navigator.clipboard?.writeText){navigator.clipboard.writeText(code).then(()=>status('liveHostStatus','Room code copied! Share it privately.')).catch(()=>status('liveHostStatus','Copy was blocked. Select the room code to copy it.'))}else status('liveHostStatus','Select the room code and copy it.')};
+el('liveGoBtn').onclick=async()=>{
+ if(!hostPeer||!hostPeer.open)return;
+ try{hostStream=await navigator.mediaDevices.getUserMedia({video:true,audio:true});el('liveHostPreview').srcObject=hostStream;el('liveHostPreview').classList.remove('hidden');el('liveEndBtn').classList.remove('hidden');el('liveGoBtn').disabled=true;el('liveGoBtn').textContent='🔴 LIVE';status('liveHostStatus','You are live! Accept a viewer below when you recognise them.')}
+ catch(e){status('liveHostStatus',e.name==='NotAllowedError'?'Camera/microphone permission was blocked. Change site permissions if you want to try again.':'Could not start camera and microphone. Check your device and try again.')}
+};
+el('liveAcceptBtn').onclick=()=>{if(!pendingCall||!hostStream)return;pendingCall.answer(hostStream);pendingCall.on('close',()=>status('liveHostStatus','Viewer disconnected. You are still live.'));pendingCall=null;el('liveIncoming').classList.add('hidden');status('liveHostStatus','Viewer accepted. You are sharing live video.')};
+el('liveDeclineBtn').onclick=()=>{if(pendingCall)pendingCall.close();pendingCall=null;el('liveIncoming').classList.add('hidden');status('liveHostStatus','Viewer declined.')};
+el('liveEndBtn').onclick=closeHost;
+el('liveJoinBtn').onclick=()=>{
+ const code=el('liveJoinCode').value.trim();if(!code){status('liveViewerStatus','Enter the room code your friend gave you.');return}
+ if(!window.Peer){status('liveViewerStatus','Live connection library did not load. Refresh the page and try again.');return}
+ closeViewer();viewerPeer=new Peer();
+ status('liveViewerStatus','Connecting to the private room…');
+ viewerPeer.on('open',()=>{
+  const canvas=document.createElement('canvas');canvas.width=16;canvas.height=16;const ctx=canvas.getContext('2d');ctx.fillStyle='#000';ctx.fillRect(0,0,16,16);blankStream=canvas.captureStream(1);
+  viewerCall=viewerPeer.call(code,blankStream);
+  if(!viewerCall){status('liveViewerStatus','Could not contact that room. Check the code and try again.');return}
+  viewerCall.on('stream',stream=>{el('liveViewerVideo').srcObject=stream;el('liveViewerVideo').classList.remove('hidden');el('liveLeaveBtn').classList.remove('hidden');status('liveViewerStatus','Connected! You are watching the live room.')});
+  viewerCall.on('close',()=>{el('liveViewerVideo').classList.add('hidden');status('liveViewerStatus','The host ended the live room.')});
+  viewerCall.on('error',()=>status('liveViewerStatus','Could not connect. Ask your friend to check the room is live.'));
+ });
+ viewerPeer.on('error',err=>status('liveViewerStatus','Room connection issue: '+err.type+'. Check the code and try again.'));
+};
+el('liveLeaveBtn').onclick=closeViewer;
+window.addEventListener('beforeunload',()=>{closeHost();closeViewer()});
+})();
+
 })();
