@@ -187,3 +187,11 @@
 .chibi-body[data-style="outfit-royal"]~.chibi-arm:after{background:linear-gradient(145deg,#ffe68d,#dba33d)!important}
 .chibi-body[data-style="outfit-dress"]{border-radius:22px 22px 30px 30px!important}
 .chibi-body[data-style="outfit-royal"]{border-radius:22px 22px 30px 30px!important}
+
+/* Keep the hairstyle on the head but lift the fringe clear of the eyes and face */
+.chibi-hair{z-index:5!important;top:17px!important;height:88px!important}
+.chibi-hair:before{left:8px!important;top:0!important;width:136px!important;height:54px!important;border-radius:72px 72px 30px 30px!important}
+.chibi-hair:after{left:22px!important;top:31px!important;width:108px!important;height:17px!important;border-radius:0 0 45% 45%!important;clip-path:polygon(0 0,100% 0,94% 100%,78% 45%,62% 100%,47% 45%,31% 100%,15% 45%)!important}
+.chibi-head{z-index:3!important}
+.chibi-face{z-index:8!important;top:48px!important}
+.chibi-blush{z-index:7!important}
