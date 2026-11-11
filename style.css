@@ -99,3 +99,21 @@
 .chibi-legs i{background:linear-gradient(90deg,#7789e9,#a4a7ff);box-shadow:inset 0 -6px 0 #5969c8}
 .chibi-platform{margin-top:0}
 @media(max-width:700px){.chibi-character{transform:scale(.98)}}
+
+/* Fix chibi layering: no duplicate emoji face, full outfit and real hair silhouette */
+.chibi-face{display:none!important}
+.chibi-head:before{z-index:2;top:49px;left:25px;width:12px;height:19px;border-radius:50% 50% 45% 45%;background:#382b3d;box-shadow:63px 0 #382b3d}
+.chibi-head:after{z-index:2;left:57px;top:79px;width:17px;height:9px;border-bottom:3px solid #c65b78}
+.chibi-hair{z-index:5;left:14px;top:19px;width:152px;height:91px;font-size:0!important;line-height:0;background:radial-gradient(ellipse at 50% 6%,#ff73b7 0 57%,#d83d91 59% 67%,transparent 69%);border-radius:76px 76px 35px 35px;pointer-events:none}
+.chibi-hair:before{content:'';position:absolute;left:9px;top:15px;width:132px;height:55px;border-radius:50% 50% 35% 35%;background:linear-gradient(145deg,#ffb2d8,#f15ba8 65%,#c93683);border:3px solid #87365f;box-shadow:inset 0 5px 0 #ffffff88}
+.chibi-hair:after{content:'';position:absolute;left:22px;top:45px;width:108px;height:30px;border-radius:0 0 45% 45%;background:repeating-linear-gradient(90deg,#ed5b9e 0 13px,#ff9dcc 14px 19px);clip-path:polygon(0 0,100% 0,90% 100%,75% 40%,60% 100%,45% 40%,30% 100%,15% 40%)}
+.chibi-head{z-index:3;overflow:visible}
+.chibi-body{z-index:5;left:50px;top:154px;width:80px;height:83px;border:4px solid #68445c;border-radius:23px 23px 16px 16px;background:linear-gradient(145deg,#ff8fc5,#b56de4 60%,#8d7cf0);box-shadow:inset 0 5px 0 #ffffff77;overflow:visible}
+.chibi-body span{display:none!important}
+.chibi-body:before{inset:7px 8px 8px;border:2px solid #ffffff88;border-radius:15px 15px 10px 10px}
+.chibi-body:after{content:'';position:absolute;left:22px;right:22px;top:10px;height:9px;border-radius:50%;background:#fff8}
+.chibi-arm{z-index:4;top:166px;width:24px;height:68px;border:3px solid #68445c;border-radius:14px;background:linear-gradient(90deg,#ff8fc5,#c875e8);overflow:hidden}
+.chibi-arm:after{top:0;height:100%;border-radius:10px;background:linear-gradient(145deg,#ff8fc5,#c875e8);border:0}
+.chibi-arm.left{left:34px}.chibi-arm.right{right:34px}
+.chibi-legs{z-index:3;top:232px}
+.chibi-accessory{z-index:7}
