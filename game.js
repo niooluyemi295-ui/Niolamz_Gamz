@@ -1,5 +1,11 @@
 (()=>{'use strict';
 const $=id=>document.getElementById(id),mount=$('gameMount'),home=$('homeView'),grid=$('gameGrid'),screen=$('gameScreen');
+
+const musicOpen=$('musicOpenBtn'),musicOverlay=$('musicOverlay'),musicVideo=$('musicVideo');
+function stopWelcomeMusic(){musicVideo.innerHTML='<p>Press play to enjoy the tune 💗</p>';musicOverlay.classList.add('hidden')}
+musicOpen?.addEventListener('click',()=>{musicOverlay.classList.remove('hidden');musicVideo.innerHTML='<iframe src="https://www.youtube-nocookie.com/embed/suRs0QDJFAs?autoplay=1&playsinline=1&rel=0" title="Niolamz welcome tune" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>'});
+$('musicCloseBtn')?.addEventListener('click',stopWelcomeMusic);
+musicOverlay?.addEventListener('click',e=>{if(e.target===musicOverlay)stopWelcomeMusic()});
 const get=(k,d)=>{try{return JSON.parse(localStorage.getItem('ng-'+k))??d}catch{return d}},save=(k,v)=>localStorage.setItem('ng-'+k,JSON.stringify(v));
 let coins=get('coins',0),played=get('played',0),best=get('best',0),badges=get('badges',[]),timer=null,cleanup=null,sound=true,audio=null;
 const avatarItems=[{id:'hair-starter',cat:'hair',name:'Classic Curls',emoji:'💇🏽‍♀️',cost:0},{id:'hair-crown',cat:'hair',name:'Royal Crown Hair',emoji:'👸🏽',cost:35},{id:'hair-blue',cat:'hair',name:'Blue Style',emoji:'🦋',cost:45},{id:'hair-sparkle',cat:'hair',name:'Sparkle Buns',emoji:'🎀',cost:55},{id:'face-happy',cat:'face',name:'Happy Face',emoji:'😊',cost:0},{id:'face-cool',cat:'face',name:'Cool Face',emoji:'😎',cost:25},{id:'face-wink',cat:'face',name:'Winky Face',emoji:'😉',cost:30},{id:'face-love',cat:'face',name:'Love Eyes',emoji:'🥰',cost:40},{id:'outfit-starter',cat:'outfit',name:'Comfy Tee',emoji:'👕',cost:0},{id:'outfit-dress',cat:'outfit',name:'Party Dress',emoji:'👗',cost:45},{id:'outfit-hoodie',cat:'outfit',name:'Cosy Hoodie',emoji:'🧥',cost:50},{id:'outfit-royal',cat:'outfit',name:'Royal Outfit',emoji:'👑',cost:70},{id:'extra-star',cat:'accessory',name:'Starry Sparkle',emoji:'⭐',cost:0},{id:'extra-glasses',cat:'accessory',name:'Cute Glasses',emoji:'🤓',cost:20},{id:'extra-flower',cat:'accessory',name:'Flower Clip',emoji:'🌸',cost:30},{id:'extra-heart',cat:'accessory',name:'Heart Halo',emoji:'💖',cost:40}];
