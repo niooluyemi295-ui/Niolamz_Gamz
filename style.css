@@ -276,3 +276,28 @@
 .snake-canvas{display:block;max-width:100%;height:auto;margin:15px auto;border:4px solid #e9e0fb;border-radius:14px}
 .mole-grid{display:grid;grid-template-columns:repeat(3,minmax(65px,95px));gap:10px;justify-content:center;margin:18px auto}.mole-hole{height:78px;border:0;border-radius:18px;background:#f0eaff;font-size:38px;cursor:pointer}
 .rps-score{display:flex;justify-content:center;gap:35px;margin:15px}.rps-buttons{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin:15px 0}.scramble-word,.math-question{font:900 clamp(25px,6vw,42px) Outfit;color:#8059e9;margin:22px 0}.word-answer{padding:12px;border:2px solid #e5dafa;border-radius:12px;font:700 15px Outfit;max-width:260px;width:80%;text-align:center}
+
+
+/* Avatar refresh: soft curls, one clear face, slim fully dressed chibi */
+.chibi-face{display:block!important;position:absolute;left:0;right:0;top:48px!important;height:38px;font-size:0!important;line-height:0;z-index:8!important;background:radial-gradient(ellipse 5px 8px at 34% 38%,#493044 92%,transparent 100%),radial-gradient(ellipse 5px 8px at 66% 38%,#493044 92%,transparent 100%)}
+.chibi-face:before{content:"";position:absolute;left:34%;top:24px;width:32%;height:9px;border-bottom:3px solid #c65b78;border-radius:0 0 50% 50%}
+.chibi-face:after{content:"";position:absolute;left:17%;top:18px;width:66%;height:7px;background:radial-gradient(ellipse at 12% 50%,#ef8ca0 0 45%,transparent 48%),radial-gradient(ellipse at 88% 50%,#ef8ca0 0 45%,transparent 48%)}
+.chibi-face[data-style="face-cool"]{background:linear-gradient(transparent 0 27%,#493044 28% 49%,transparent 50%) 29% 0/29px 15px no-repeat,linear-gradient(transparent 0 27%,#493044 28% 49%,transparent 50%) 71% 0/29px 15px no-repeat}
+.chibi-face[data-style="face-cool"]:before{content:"";border:0;border-bottom:3px solid #c65b78;top:23px}
+.chibi-face[data-style="face-wink"]{background:radial-gradient(ellipse 5px 8px at 66% 38%,#493044 92%,transparent 100%)}
+.chibi-face[data-style="face-wink"]:before{left:25%;top:15px;width:18%;height:4px;border:0;border-top:3px solid #493044;border-radius:50%}
+.chibi-face[data-style="face-love"]{background:radial-gradient(circle at 34% 38%,#ec579b 0 6px,transparent 7px),radial-gradient(circle at 66% 38%,#ec579b 0 6px,transparent 7px)}
+.chibi-face[data-style="face-love"]:before{border-bottom-color:#e85e9b}
+.chibi-head:before,.chibi-head:after{display:none!important}
+.chibi-hair{z-index:9!important;top:12px!important;left:8px!important;width:164px!important;height:105px!important;font-size:0!important;line-height:0!important;border-radius:82px 82px 48px 48px!important;overflow:visible!important}
+.chibi-hair:before{content:"";position:absolute;left:14px!important;top:0!important;width:136px!important;height:63px!important;border:3px solid #87365f;border-radius:70px 70px 34px 34px!important;background:radial-gradient(circle at 12% 72%,#ffb4d7 0 13px,transparent 14px),radial-gradient(circle at 31% 64%,#f15ba8 0 15px,transparent 16px),radial-gradient(circle at 50% 70%,#ffb4d7 0 14px,transparent 15px),radial-gradient(circle at 70% 64%,#f15ba8 0 15px,transparent 16px),radial-gradient(circle at 88% 72%,#ffb4d7 0 13px,transparent 14px),linear-gradient(145deg,#ffb2d8,#e94c9b 70%,#c93683)!important}
+.chibi-hair:after{content:"";position:absolute;left:13px!important;top:45px!important;width:138px!important;height:46px!important;background:radial-gradient(circle at 8% 15%,#f15ba8 0 14px,transparent 15px),radial-gradient(circle at 26% 2%,#ffb4d7 0 13px,transparent 14px),radial-gradient(circle at 45% 8%,#f15ba8 0 14px,transparent 15px),radial-gradient(circle at 65% 0%,#ffb4d7 0 13px,transparent 14px),radial-gradient(circle at 86% 15%,#f15ba8 0 14px,transparent 15px)!important;clip-path:none!important}
+.chibi-hair[data-style="hair-crown"]:before{background:radial-gradient(circle at 12% 72%,#ffe9a4 0 13px,transparent 14px),radial-gradient(circle at 50% 68%,#ffd75c 0 15px,transparent 16px),radial-gradient(circle at 88% 72%,#ffe9a4 0 13px,transparent 14px),linear-gradient(145deg,#ffe58a,#dba33d 70%,#a96c27)!important}
+.chibi-hair[data-style="hair-blue"]:before{background:radial-gradient(circle at 12% 72%,#c7f5ff 0 13px,transparent 14px),radial-gradient(circle at 50% 68%,#76d9ff 0 15px,transparent 16px),radial-gradient(circle at 88% 72%,#c7f5ff 0 13px,transparent 14px),linear-gradient(145deg,#b8f2ff,#4eb5ee 70%,#3674ce)!important}
+.chibi-hair[data-style="hair-sparkle"]:before{background:radial-gradient(circle at 12% 72%,#e4c3ff 0 13px,transparent 14px),radial-gradient(circle at 50% 68%,#c18aff 0 15px,transparent 16px),radial-gradient(circle at 88% 72%,#e4c3ff 0 13px,transparent 14px),linear-gradient(145deg,#e4c3ff,#a66be8 70%,#7041b6)!important}
+.chibi-body[data-style="outfit-dress"]{left:45px!important;top:151px!important;width:90px!important;height:91px!important;border:3px solid #87365f!important;border-radius:0!important;clip-path:polygon(19% 0,81% 0,87% 37%,100% 100%,0 100%,13% 37%)!important}
+.chibi-body[data-style="outfit-dress"]:before{inset:0 17px 48px!important;border:0!important}
+.chibi-body[data-style="outfit-dress"]:after{left:13px!important;right:13px!important;top:36px!important}
+.chibi-body[data-style="outfit-royal"]{height:91px!important;top:151px!important;border-radius:22px 22px 30px 30px!important}
+.chibi-body[data-style="outfit-starter"],.chibi-body[data-style="outfit-hoodie"]{height:86px!important}
+.chibi-legs i{background:linear-gradient(90deg,#8a8ee9,#626fd0)!important;border-radius:7px 7px 10px 10px!important}
